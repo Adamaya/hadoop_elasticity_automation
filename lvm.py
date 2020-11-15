@@ -110,3 +110,11 @@ def format_extended_partition(lvpath):
     cmd = "resize2fs {}"
     output = sp.getstatusoutput(cmd.format(lvpath))
     return output
+
+def check_report():
+    """
+    this function shows the report of hadoop cluster
+    :return: output tuple variable containing cluster report.
+    """
+    output = sp.getstatusoutput("sudo hadoop dfsadmin -report")
+    return output
