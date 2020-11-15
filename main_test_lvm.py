@@ -1,6 +1,7 @@
 import lvm
 
 print("""
+    ################################
     1. Display available hard drives
     2. Create Physical Volume
     3. Create Volume Group
@@ -12,6 +13,7 @@ print("""
     9. Extend Logical Volume
     10. Format extended partition
     11. Hadoop Cluster Report
+    ################################
 """)
 command_number=int(input("Enter the command number: "))
 if command_number==1:
@@ -22,14 +24,17 @@ if command_number==1:
         print("failed to execute the command")
 
 elif command_number==2:
-    status_report=lvm.create_physical_volume("/dev/sdb")
+    drive = input("enter the drive name: ")
+    status_report=lvm.create_physical_volume(drive)
     if status_report[0] == 0:
         print(status_report[1])
     else:
         print("failed to execute the command")
 
 elif command_number==3:
-    status_report=lvm.create_volume_group("vg1","/dev/sdb")
+    vgname = input("enter the volume group name:")
+    drive = input("enter the drive name: ")
+    status_report=lvm.create_volume_group(vgname,drive)
     if status_report[0] == 0:
         print(status_report[1])
     else:
@@ -43,7 +48,10 @@ elif command_number==4:
         print("failed to execute the command")
 
 elif command_number==5:
-    status_report=lvm.create_logical_volume("vg1","lv1","2")
+    vgname = input("enter the volume group name:")
+    lvname = input("enter the logical volume name: ")
+    size = input("enter the extended volume size: ")
+    status_report=lvm.create_logical_volume(vgname,lvname,size)
     if status_report[0] == 0:
         print(status_report[1])
     else:
@@ -51,13 +59,16 @@ elif command_number==5:
 
 
 elif command_number==6:
-    status_report=lvm.format_logical_volume("/dev/vg1/lv1")
+    lvPath = input("enter the logical volume path: ")
+    status_report=lvm.format_logical_volume(lvPath)
     if status_report[0] == 0:
         print(status_report[1])
     else:
         print("failed to execute the command")
 
 elif command_number==7:
+    mount_directory = input("enter the mount directory path: ")
+    lvPath = input("enter the logical volume path: ")
     status_report = lvm.mount_logical_volume("/datanodedir","/dev/vg1/lv1")
     if status_report[0] == 0:
         print(status_report[1])
