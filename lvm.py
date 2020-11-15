@@ -86,3 +86,27 @@ def extend_volume_group(vgname, lvPath):
     cmd = "vgextend {} {}"
     output = sp.getstatusoutput(cmd.format(vgname, drives))
     return output
+
+
+def extend_logical_volume(vgname, lvname, size):
+    """
+    this function extends the size of logical volume
+    :return: output variable that contains exit code and output string in tuple datatype
+    :param vgname: name of volume group
+    :param lvname: name of logical volume
+    :param size: extended size value
+    """
+    cmd = "lvextend -L +{}G /dev/{}/{}"
+    output = sp.getstatusoutput(cmd.format(size, vgname, lvname))
+    return output
+
+
+def format_extended_partition(lvpath):
+    """
+    tis function formats the newly created logical volume
+    :param lvpath:
+    :return:
+    """
+    cmd = "resize2fs {}"
+    output = sp.getstatusoutput(cmd.format(lvpath))
+    return output
