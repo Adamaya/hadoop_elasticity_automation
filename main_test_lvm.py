@@ -101,3 +101,11 @@ elif command_number==10:
         print(status_report[1])
     else:
         print(status_report[1])
+
+        
+elif command_number==11:
+    status_report=lvm.check_report()
+    if status_report[0] == 0:
+        print(status_report[1])
+    else:
+        print(status_report[1])
