@@ -58,7 +58,34 @@ elif command_number==6:
         print("failed to execute the command")
 
 elif command_number==7:
-    status_report=lvm.mount_logical_volume("/datanodedir","/dev/vg1/lv1")
+    status_report = lvm.mount_logical_volume("/datanodedir","/dev/vg1/lv1")
+    if status_report[0] == 0:
+        print(status_report[1])
+    else:
+        print(status_report[1])
+
+elif command_number==8:
+    vgname = input("enter the volume group name:")
+    lvPath = input("enter the logical volume path: ")
+    status_report=lvm.extend_volume_group(vgname, lvPath)
+    if status_report[0] == 0:
+        print(status_report[1])
+    else:
+        print(status_report[1])
+
+elif command_number==9:
+    vgname = input("enter the volume group name: ")
+    lvname = input("enter the logical volume name: ")
+    size = input("enter the extended volume size: ")
+    status_report=lvm.extend_logical_volume(vgname, lvname, size)
+    if status_report[0] == 0:
+        print(status_report[1])
+    else:
+        print(status_report[1])
+
+elif command_number==10:
+    lvpath = input("enter the logical volume path: ")
+    status_report=lvm.format_extended_partition(lvpath)
     if status_report[0] == 0:
         print(status_report[1])
     else:
