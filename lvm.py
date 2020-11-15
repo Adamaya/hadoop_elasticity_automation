@@ -75,3 +75,14 @@ def mount_logical_volume(mountDirPath, lvPath):
     cmd = "mount {} {}"
     output = sp.getstatusoutput(cmd.format(lvPath, mountDirPath))
     return output
+
+def extend_volume_group(vgname, lvPath):
+    """
+    this function extends the size of volume group.
+    :param vgname: name of volume group
+    :param drives: path of attached ddrive example "/dev/sda /dev/sdb"
+    :return: output variable that contains exit code and output string in tuple datatype
+    """
+    cmd = "vgextend {} {}"
+    output = sp.getstatusoutput(cmd.format(vgname, drives))
+    return output
